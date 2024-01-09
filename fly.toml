@@ -1,0 +1,51 @@
+# fly.toml app configuration file generated for parisb-rest on 2023-12-22T00:04:19+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "parisb-rest"
+primary_region = "cdg"
+
+[build]
+  image = "ghost:5.75.2"
+
+[http_service]
+  internal_port = 2368
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 2
+  memory_mb = 512
+
+[env]  
+  url = "https://parisb.rest"
+  database__client = "sqlite3"  
+  database__connection__filename = "content/data/ghost.db"  
+  database__useNullAsDefault = "true"  
+  database__debug = "false"
+
+[mounts]
+  source="data"
+  destination="/var/lib/ghost/content"
+
+[[services]]  
+  internal_port = 2368
+
+[checks]
+  [checks.ghost_check]
+    port = 2368
+    type = "http"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
+    method = "GET"
+    path = "/"
+    protocol = "http"
+    [checks.ghost_check.headers]
+      X-Forwarded-Proto = "https"
+    
