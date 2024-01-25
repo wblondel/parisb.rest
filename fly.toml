@@ -8,7 +8,7 @@ primary_region = "cdg"
 swap_size_mb = 512
 
 [build]
-  image = "ghost:5.75.2"
+  image = "ghost:5.76.2"
 
 [http_service]
   internal_port = 2368
