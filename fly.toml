@@ -5,6 +5,7 @@
 
 app = "parisb-rest"
 primary_region = "cdg"
+swap_size_mb = 512
 
 [build]
   image = "ghost:5.75.2"
@@ -19,8 +20,8 @@ primary_region = "cdg"
 
 [[vm]]
   cpu_kind = "shared"
-  cpus = 2
-  memory_mb = 512
+  cpus = 1
+  memory_mb = 256
 
 [env]  
   url = "https://parisb.rest"
